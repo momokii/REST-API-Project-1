@@ -7,11 +7,13 @@ from flask import jsonify, request, Blueprint
 kategori = Blueprint('kategori', __name__,
                      url_prefix='/api/kategori')
 
+base_path_docs = "./docs/kategori"
 
 
 ##### ----------------------- KATEGORI ----------------------- #####
 
 @kategori.get('/all')
+@swag_from(f'{base_path_docs}/kategori.yaml')
 def get_all_kategori():
 
     all_kategori = Kategori.query.all()
@@ -36,6 +38,7 @@ def get_all_kategori():
 
 
 @kategori.get('/<int:id>')
+@swag_from(f'{base_path_docs}/kategori_get.yaml')
 def get_kategori(id):
 
     kategori = Kategori.query.filter_by(id_kategori = id).first()
@@ -58,6 +61,7 @@ def get_kategori(id):
 
 
 @kategori.post('/tambah')
+@swag_from(f'{base_path_docs}/kategori_tambah.yaml')
 def tambah_kategori():
 
     request.access_control_request_headers
@@ -99,6 +103,7 @@ def tambah_kategori():
 
 @kategori.put('/edit/<int:id>')
 @kategori.patch('/edit/<int:id>')
+@swag_from(f'{base_path_docs}/kategori_edit.yaml')
 def edit_kategori(id):
 
     request.access_control_request_headers
@@ -147,6 +152,7 @@ def edit_kategori(id):
 
 
 @kategori.delete('/hapus/<int:id>')
+@swag_from(f'{base_path_docs}/kategori_delete.yaml')
 def hapus_kategori(id):
 
     kategori_hapus = Kategori.query.get(id)

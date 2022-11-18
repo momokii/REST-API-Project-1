@@ -1,0 +1,39 @@
+Hapus User
+---
+tags:
+  - User
+
+parameters:
+  - name: Data User
+    description : Data user yang akan dihapus
+    in: body
+    required: required
+    schema:
+      type: object
+      required:
+        - "username"
+        - "password"
+      properties:
+        username:
+          type: "string"
+          example: "username_dihapus"
+
+        password:
+          type: "password"
+          format : password
+          example: "********"
+
+
+responses:
+  200:
+    description: Berhasil Hapus User
+
+  401:
+    description: Informasi dimasukan salah
+
+  406:
+    description: Gagal, parameter tidak sesuai
+
+  500:
+    description: Gagal, format data dikirimkan bukan JSON
+

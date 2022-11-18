@@ -1,0 +1,42 @@
+Edit data kategori yang sudah ada
+---
+tags:
+  - Kategori
+
+parameters:
+  - name: id
+    in: path
+    required: required
+    type: int
+    description: Id Kategori yang akan diedit
+
+  - name: Data Kategori
+    description : Data yang akan diinputkan ke dalam database
+    in: body
+    required: required
+    schema:
+      type: object
+      required:
+        - "nama"
+      properties:
+        nama:
+          type: "string"
+          example: "Cemilan"
+          description: Nama Kategori baru
+
+
+responses:
+  200:
+    description: Data kategori setelah di edit
+
+  404:
+    description: ID kategori tidak ditemukan
+
+  406:
+    description: Gagal, parameter tidak sesuai
+
+  409:
+    description: Nama kategori setelah diubah sudah ada pada data kategori lainnya
+
+  500:
+    description: Format dikirimkan bukan JSON

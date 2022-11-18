@@ -1,0 +1,19 @@
+Delete data makanan
+---
+tags:
+  - Makanan
+
+parameters:
+  - in: path
+    name: id
+    required: required
+    type: int
+    description: "id makanan yang akan dihapus"
+
+
+responses:
+  200:
+    description: Makanan Berhasil di hapus
+
+  404:
+    description: ID tidak ditemukan

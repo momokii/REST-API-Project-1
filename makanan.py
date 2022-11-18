@@ -7,11 +7,42 @@ makanan = Blueprint('makanan', __name__,
                     url_prefix= '/api/makanan')
 
 
+base_path_docs = "./docs/makanan"
+
+
 ##### ----------------------- MAKANAN ----------------------- #####
 
 @makanan.get('/all')
+@swag_from(f'{base_path_docs}/makanan.yaml')
+def get_makanan_all():
+
+    all_makanan = Makanan.query.all()
+    dict = []
+    for makanan in all_makanan:
+        data = {
+            'id' : makanan.id_makanan,
+            'nama' : makanan.nama_makanan,
+            'harga': makanan.harga,
+            'id_kategori' : makanan.kategori_id
+        }
+        dict.append(data)
+
+    if dict != []:
+        json_return = jsonify(dict), HTTP_200_OK
+    else:
+        json_return = jsonify({}), HTTP_204_NO_CONTENT
+
+    json_return[0].headers.add_header("Access-Control-Allow-Origin", '*')
+    return json_return
+
+
+
+
+
+@makanan.get('/page')
+@swag_from(f'{base_path_docs}/makanan_page.yaml')
 #@jwt_required()
-def get_all_makanan():
+def get_all_makanan_pagination():
 
     #current_user_id = get_jwt_identity()
 
@@ -58,6 +89,7 @@ def get_all_makanan():
 
 
 @makanan.get('/<int:id>')
+@swag_from(f"{base_path_docs}/makanan_get.yaml")
 def get_makanan(id):
     makanan = Makanan.query.filter_by(id_makanan = id).first()
     if makanan:
@@ -81,17 +113,19 @@ def get_makanan(id):
 
 
 @makanan.post('/tambah_makanan')
+@swag_from(f'{base_path_docs}/makanan_tambah.yaml')
 def tambah_makanan():
 
     request.access_control_request_headers
     req_check = request.headers.get('Content-Type')
     if req_check == "application/json":
-        data = request.get_json()
-        nama = data['nama_makanan']
-        harga = data['harga']
-        kategori_id = data['id_kategori']
 
         try:
+            data = request.get_json()
+            nama = data['nama_makanan']
+            harga = data['harga']
+            kategori_id = data['id_kategori']
+
             makanan_baru = Makanan(
                 nama_makanan = nama,
                 harga = harga,
@@ -115,6 +149,9 @@ def tambah_makanan():
                 'error': f'Makanan : ({nama}), sudah ada di tabel!'
             }), HTTP_409_CONFLICT
 
+        except KeyError:
+            json_return = non_json_requested()
+
     else:
         json_return = non_json_return(req_check)
 
@@ -127,20 +164,20 @@ def tambah_makanan():
 
 @makanan.put('/edit/<int:id>')
 @makanan.patch('/edit/<int:id>')
+@swag_from(f"{base_path_docs}/makanan_edit.yaml")
 def edit_makanan(id):
 
     request.access_control_request_headers
     req_check = request.headers.get('Content-Type')
     if req_check == 'application/json':
-        data = request.get_json()
-        nama_baru = data['nama_baru']
-        harga_baru = data['harga_baru']
-        kategori_id = data['kategori_id']
 
         makanan_edit = Makanan.query.get(id)
         if makanan_edit:
             try:
-                nama_lama = makanan_edit.nama_makanan
+                data = request.get_json()
+                nama_baru = data['nama_baru']
+                harga_baru = data['harga_baru']
+                kategori_id = data['kategori_id']
 
                 makanan_edit.nama_makanan = nama_baru
                 makanan_edit.harga = harga_baru
@@ -160,6 +197,9 @@ def edit_makanan(id):
                     'error': f'Makanan : ({nama_baru}), sudah ada di tabel!'
                 }), HTTP_409_CONFLICT
 
+            except KeyError:
+                json_return = non_json_requested()
+
         else:
             json_return = jsonify({
                 'error' : 'Info Makanan tidak ditemuukan!'
@@ -176,6 +216,7 @@ def edit_makanan(id):
 
 
 @makanan.delete('/hapus/<int:id>')
+@swag_from(f'{base_path_docs}/makanan_delete.yaml')
 def hapus_makanan(id):
     makanan_hapus = Makanan.query.get(id)
     if makanan_hapus:

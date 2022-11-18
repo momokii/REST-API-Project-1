@@ -5,13 +5,7 @@ from kategori import *
 from user import *
 
 
-@app.route('/api')
-@app.route('/')
-def awal():
-    return "REST API Kasir"
-
-
-### ---------------- ERROR HANDLER ------------------ ###
+### ---------------- GLOBAL ERROR HANDLER ------------------ ###
 @app.errorhandler(HTTP_404_NOT_FOUND)
 def handler_404(e):
     return jsonify({
@@ -24,9 +18,6 @@ def handler_405(e):
     return jsonify({
         'error' : '405 Error/ Method digunakan salah!'
     }), HTTP_405_METHOD_NOT_ALLOWED
-
-
-
 
 
 

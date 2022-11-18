@@ -1,0 +1,34 @@
+Tambah data kategori
+---
+tags:
+  - Kategori
+
+parameters:
+  - name: Data Kategori
+    description : Nama Kategori yang akan diinputkan
+    in: body
+    required: required
+    schema:
+      type: object
+      required:
+        - "nama_kategori"
+      properties:
+        nama_kategori:
+          type: "string"
+          example: "Makanan"
+          description: Nama kategori yang ingin diinputkan
+
+
+responses:
+  201:
+    description: Berhasil Input, Tampilkan data yang baru saja diinputkan
+
+  409:
+    description: Gagal, data nama kategori sudah ada di database
+
+  406:
+    description: Gagal, parameter tidak sesuai
+
+  500:
+    description: Gagal, format data dikirimkan bukan JSON
+

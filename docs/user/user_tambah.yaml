@@ -1,0 +1,39 @@
+Tambah User Baru
+---
+tags:
+  - User
+
+parameters:
+  - name: Data User
+    description : Data untuk user baru
+    in: body
+    required: required
+    schema:
+      type: object
+      required:
+        - "username"
+        - "password"
+      properties:
+        username:
+          type: "string"
+          example: "username_baru"
+
+        password:
+          type: "password"
+          format : password
+          example: "********"
+
+
+responses:
+  201:
+    description: Berhasil Buat User Baru
+
+  409:
+    description: Username sudah ada
+
+  406:
+    description: Gagal, parameter tidak sesuai
+
+  500:
+    description: Gagal, format data dikirimkan bukan JSON
+

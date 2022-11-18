@@ -1,0 +1,27 @@
+Ambil semua data makanan dibagi ke dalam page
+---
+tags:
+  - Makanan
+
+parameters:
+  - in: query
+    name: page
+    required: false
+    default: 1
+    description: Page ke berapa yang akan diambil
+    type: int
+
+  - in: query
+    name: per_page
+    required: false
+    default: 5
+    description: Tiap page akan ada berapa data
+    type: int
+
+
+responses:
+  200:
+    description: Data semua makanan
+
+  204:
+    description: Data makanan kosong

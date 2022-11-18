@@ -1,0 +1,44 @@
+Tambah data makanan
+---
+tags:
+  - Makanan
+
+parameters:
+  - name: Data Makanan
+    description : Data yang akan diinputkan ke dalam database
+    in: body
+    required: required
+    schema:
+      type: object
+      required:
+        - "nama_makanan"
+        - "harga"
+        - "id_kategori"
+      properties:
+        nama_makanan:
+          type: "string"
+          example: "Bakso"
+
+        harga:
+          type: "int"
+          example: 100000
+
+        id_kategori:
+          type: "int"
+          description: "merupakan id kategori yang sudah ada di tabel kategori"
+          example: 1
+  
+
+responses:
+  201:
+    description: Berhasil Input, Tampilkan data yang baru saja diinputkan
+
+  409:
+    description: Gagal, data nama makanan sudah ada di database
+
+  406:
+    description: Gagal, parameter tidak sesuai
+
+  500:
+    description: Gagal, format data dikirimkan bukan JSON
+

@@ -1,0 +1,12 @@
+Ambil semua data makanan
+---
+tags:
+  - Makanan
+
+
+responses:
+  200:
+    description: Data semua makanan
+
+  204:
+    description: Data makanan kosong

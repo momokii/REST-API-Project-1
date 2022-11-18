@@ -1,0 +1,19 @@
+Ambil satu data kategori
+---
+tags:
+  - Kategori
+
+parameters:
+  - in: path
+    name: id
+    required: required
+    type: int
+    description: "id kategori yang akan diambil datanya"
+
+
+responses:
+  200:
+    description: JSON Data Kategori
+
+  404:
+    description: ID tidak ditemukan

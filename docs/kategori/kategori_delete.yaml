@@ -1,0 +1,19 @@
+Delete data kategori
+---
+tags:
+  - Kategori
+
+parameters:
+  - in: path
+    name: id
+    required: required
+    type: int
+    description: "id kategori yang akan dihapus"
+
+
+responses:
+  200:
+    description: Kategori Berhasil di hapus
+
+  404:
+    description: ID tidak ditemukan

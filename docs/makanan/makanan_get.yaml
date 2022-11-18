@@ -1,0 +1,19 @@
+Ambil satu data makanan
+---
+tags:
+  - Makanan
+
+parameters:
+  - in: path
+    name: id
+    required: required
+    type: int
+    description: "id makanan yang akan diambil datanya"
+
+
+responses:
+  200:
+    description: JSON Data Makanan
+
+  404:
+    description: ID tidak ditemukan

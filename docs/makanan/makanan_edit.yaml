@@ -1,0 +1,52 @@
+Edit Data Makanan Sudah Ada
+---
+tags:
+  - Makanan
+
+parameters:
+  - name: id
+    in: path
+    required: required
+    type: int
+    description: Id Makanan yang akan diedit
+
+  - name: Data Makanan
+    description : Data yang akan diinputkan ke dalam database
+    in: body
+    required: required
+    schema:
+      type: object
+      required:
+        - "nama_baru"
+        - "harga_baru"
+        - "kategori_id"
+      properties:
+        nama_baru:
+          type: "string"
+          example: "Bakso"
+
+        harga_baru:
+          type: "int"
+          example: 100000
+
+        kategori_id:
+          type: "int"
+          description: "merupakan id kategori yang sudah ada di tabel kategori"
+          example: 1
+  
+
+responses:
+  200:
+    description: Data makanan setelah di edit
+
+  404:
+    description: ID makanan tidak ditemukan
+
+  406:
+    description: Gagal, parameter tidak sesuai
+
+  409:
+    description: Nama makanan setelah diubah sudah ada pada data makanan lainnya
+
+  500:
+    description: Format dikirimkan bukan JSON

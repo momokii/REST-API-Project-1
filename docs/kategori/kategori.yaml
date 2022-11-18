@@ -1,0 +1,12 @@
+Ambil semua data Kategori
+---
+tags:
+  - Kategori
+
+
+responses:
+  200:
+    description: Data semua kategori
+
+  204:
+    description: Data kategori kosong
